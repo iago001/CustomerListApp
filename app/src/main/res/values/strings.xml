@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CustomerListApp</string>
+    <string name="customer_name">"%s %s"</string>
+</resources>
