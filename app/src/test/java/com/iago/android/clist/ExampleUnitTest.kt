@@ -1,4 +1,4 @@
-package com.iago.android.customerlistapp
+package com.iago.android.clist
 
 import org.junit.Test
 

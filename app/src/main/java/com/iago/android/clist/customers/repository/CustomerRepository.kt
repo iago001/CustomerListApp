@@ -1,10 +1,10 @@
-package com.iago.android.customerlistapp.customers.repository
+package com.iago.android.clist.customers.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.iago.android.customerlistapp.customers.model.Customer
-import com.iago.android.customerlistapp.customers.service.CustomerService
+import com.iago.android.clist.customers.model.Customer
+import com.iago.android.clist.customers.service.CustomerService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,20 +13,23 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 private const val BASE_URL = "https://androidbasics-e48d1.firebaseapp.com/"
 
-class NetworkRepository {
+class CustomerRepository {
 
-    private val customerService: CustomerService
-    private val customerList = MutableLiveData<List<Customer>>()
+    private val customerList: MutableLiveData<List<Customer>>
+    val customerService: CustomerService
 
     init {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
         customerService = retrofit.create(CustomerService::class.java)
+
+        customerList = MutableLiveData()
     }
 
-    fun customerList(): LiveData<List<Customer>> {
+    fun customerListLiveData(): LiveData<List<Customer>> {
         return customerList
     }
 
@@ -41,11 +44,11 @@ class NetworkRepository {
                 response: Response<List<Customer>>
             ) {
                 if (response.isSuccessful) {
-                    response.body()?.let {
+                    response.body().let {
                         customerList.value = response.body()
                     }
                 } else {
-                    Log.e("NetworkRepo", "response unsuccessful")
+                    Log.d(CustomerRepository::class.simpleName, "Response unsuccessful")
                 }
             }
 
