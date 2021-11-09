@@ -5,10 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.iago.android.clist.customers.model.Customer
 import com.iago.android.clist.customers.repository.CustomerRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.android.scopes.ViewModelScoped
+import javax.inject.Inject
 
-class CustomerViewModel : ViewModel() {
+@HiltViewModel
+class CustomerViewModel @Inject constructor(val repository: CustomerRepository) : ViewModel() {
 
-    private val repository = CustomerRepository()
     private val _selectedCustomer: MutableLiveData<Customer> = MutableLiveData()
     val selectedCustomer: LiveData<Customer> = _selectedCustomer
 

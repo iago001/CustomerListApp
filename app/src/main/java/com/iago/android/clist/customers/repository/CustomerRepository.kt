@@ -10,22 +10,13 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
-private const val BASE_URL = "https://androidbasics-e48d1.firebaseapp.com/"
-
-class CustomerRepository {
+class CustomerRepository @Inject constructor(var customerService: CustomerService) {
 
     private val customerList: MutableLiveData<List<Customer>>
-    val customerService: CustomerService
 
     init {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        customerService = retrofit.create(CustomerService::class.java)
-
         customerList = MutableLiveData()
     }
 

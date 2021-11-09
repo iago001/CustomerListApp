@@ -5,14 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.iago.android.clist.R
 import com.iago.android.clist.customers.viewmodel.CustomerViewModel
 import com.iago.android.clist.databinding.FragmentCustomerDetailsBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class CustomerDetailsFragment : Fragment() {
 
-    private val viewModel: CustomerViewModel by activityViewModels()
+    val viewModel: CustomerViewModel by activityViewModels()
     private lateinit var binding: FragmentCustomerDetailsBinding
 
     override fun onCreateView(
@@ -21,7 +26,7 @@ class CustomerDetailsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_customer_details, container, false)
-        binding = FragmentCustomerDetailsBinding.bind(view)
+        binding = DataBindingUtil.bind(view.rootView)!!
         return view
     }
 
